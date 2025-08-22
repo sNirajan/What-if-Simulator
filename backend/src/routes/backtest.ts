@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validateBody } from '../middleware/validate';
-import { getAdjustedSeries } from '../lib/prices';
-import { cagr, totalReturnPct } from '../lib/math';
-import { AppError } from '../lib/errors';
+import { validateBody } from '../middleware/validate.js';
+import { getAdjustedSeries } from '../lib/prices.js';
+import { cagr, totalReturnPct } from '../lib/math.js';
+import { AppError } from '../lib/errors.js';
 
 export const router = Router();
 
@@ -21,8 +21,12 @@ router.post('/', validateBody(Body), async (req, res) => {
   const series = await getAdjustedSeries(p.ticker, p.start_date, p.end_date);
   if (series.length < 2) throw new AppError(422, 'Insufficient data');
 
-  const start = series[0].adj_close;
-  const end   = series[series.length - 1].adj_close;
+  const start = series[0]?.adj_close;
+  const end   = series[series.length - 1]?.adj_close;
+
+  if (start === undefined || end === undefined) {
+    throw new AppError(422, 'Insufficient price data');
+  }
   const shares = (p.amount / start) * (1 - p.fees_bps / 10000);
   const final_value = shares * end;
 
