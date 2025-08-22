@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { env } from './lib/config.js';
-import { errorMiddleware, notFound } from './lib/errors';
-import { router as backtest } from './routes/backtest';
+import { errorMiddleware, notFound } from './lib/errors.js';
+import { router as backtest } from './routes/backtest.js';
 
 export const app = express();
 app.use(express.json());
