@@ -115,4 +115,4 @@ It demonstrates the ability to design and deliver a **scalable, production-style
 **Nirajan Shah (Nira)**  
 [Portfolio](http://nirajanshah.me)  
 [GitHub](https://github.com/sNirajan)  
-✉️ itsnirajan99@gmail.com
+itsnirajan99@gmail.com
