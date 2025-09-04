@@ -105,7 +105,7 @@ This project showcases **end-to-end full-stack engineering**, combining:
 - **Frontend polish** (React SPA, Tailwind, charts).  
 - **Backend reliability** (TypeScript APIs, validation, caching).  
 - **Modern workflows** (Docker, CI/CD, cloud deployment).  
-- **AI integration** (only for UX — parsing & explanations, not numbers).  
+- **AI integration** (only for UX - parsing & explanations, not numbers).  
 
 It demonstrates the ability to design and deliver a **scalable, production-style system** that balances **user experience, performance, and trustworthiness.**  
 
