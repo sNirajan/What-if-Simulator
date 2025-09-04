@@ -27,6 +27,9 @@ const Body = z.object({
   end_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   cadence: z.enum(['lump_sum']).default('lump_sum'),
   fees_bps: z.number().min(0).max(10000).default(0),
+}).refine(p => p.start_date <= p.end_date, {
+  message: 'start_date must be <= end_date',
+  path: ['start_date'],
 });
 
 router.post(
@@ -56,13 +59,20 @@ router.post(
     const shares = (p.amount / start) * feeMultiplier;
     const final_value = shares * end;
 
-    // Rough day diff for CAGR. (Sprint 2: snap to trading days precisely.)
+    const effectiveStart = series[0]?.date;
+    const effectiveEnd = series[series.length - 1]?.date;
+
+    if (!effectiveStart || !effectiveEnd) {
+      throw new AppError(422, 'Insufficient date data');
+    }
+
+    // Use effective dates for day-diff (more accurate than raw input)
     const days = Math.max(
       1,
       Math.round(
-        (new Date(p.end_date).getTime() - new Date(p.start_date).getTime()) / 86_400_000
+        (Date.parse(effectiveEnd) - Date.parse(effectiveStart)) / 86_400_000
       )
-    );
+    )
 
     // 4) Respond with transparent, reproducible numbers.
     return res.json({
@@ -74,8 +84,12 @@ router.post(
       assumptions: {
         adjusted_prices: true,
         fees_bps: p.fees_bps,
-        dividends_reinvested: true, // implicit when using adjusted close
+        dividends_reinvested: true,
+        effective_start_date: effectiveStart,
+        effective_end_date: effectiveEnd,
+        snap_policy: 'start=next, end=previous',
       },
     });
+
   })
 );
