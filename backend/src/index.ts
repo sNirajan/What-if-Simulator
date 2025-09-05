@@ -12,4 +12,5 @@
 import { app } from './app.js';
 import { env } from './lib/config.js';
 
-app.listen(env.port, () => console.log(`API listening on :${env.port}`));
+const port = Number(process.env.PORT) || 8080;
+app.listen(port, () => console.log(`API listening on :${port}`));
