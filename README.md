@@ -43,10 +43,15 @@ The app + API produces **reproducible backtests** with an interactive chart, CSV
 ##  Tech stack
 
 **Frontend:** Next.js (App Router), React, TypeScript, TailwindCSS, **custom SVG chart**
+
 **Backend:** Node.js + Express + TypeScript, Zod validation
+
 **Data:** Yahoo Finance (adjusted close)
+
 **Storage:** Prisma + Postgres (Neon) - schema present; scenario saving is a roadmap item
+
 **Infra:** Vercel (frontend), Render (backend)
+
 **Testing:** Vitest unit tests for math/date logic
 
 
@@ -154,7 +159,6 @@ npm run dev            # http://localhost:3000
 
 ##  Security & privacy
 
-* AI Explain runs **server‑side only**; API keys are not exposed to the browser.
 * The model receives *only* the numeric JSON already shown to the user.
 * No user accounts in MVP; no PII stored. Scenario saving is optional/future.
 
