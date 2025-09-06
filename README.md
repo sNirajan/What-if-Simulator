@@ -14,7 +14,7 @@ It runs a factual **backtest** using **adjusted close** prices (Yahoo Finance), 
 
 ## 🔗 Live demo
 
-* **App (Vercel):** `https://what-if-simulator-k68m8v13n-nirajan-shahs-projects.vercel.app`
+* **App (Vercel):** `https://what-if-simulator-five.vercel.app`
 
 
 > Note: Free tiers may cold‑start; first request can take a few seconds.
